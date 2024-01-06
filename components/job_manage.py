@@ -24,9 +24,9 @@ client = boto3.client('dynamodb', region_name='ap-northeast-1', aws_access_key_i
 class JobManager():
   def __init__(self, template, pkl_tot, pkl_vec, table_name, line_user_id, model_name="gpt-3.5-turbo-1106"):
     llm = ChatOpenAI(model_name=model_name, openai_api_key='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', temperature=0.8)
-    message_history = DynamoDBChatMessageHistory(table_name=table_name, session_id=str(line_user_id))
+    # message_history = DynamoDBChatMessageHistory(table_name=table_name, session_id=str(line_user_id))
     memory = ConversationBufferWindowMemory(
-      memory_key="history", chat_memory=message_history, return_messages=True, k=5
+      return_messages=True, k=5
     )
     prompt = ChatPromptTemplate.from_messages([
       SystemMessagePromptTemplate.from_template(template),
