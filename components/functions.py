@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 from langchain.embeddings.openai import OpenAIEmbeddings
-from linebot.models import CarouselColumn, URIAction
 
 
 def index_of(txt, sub):
@@ -149,20 +148,6 @@ def take_col(job_msg_json, col_name):
     if url:
       col_array.append(url)
   return col_array
-
-
-def create_carousel_columns(cards_data):
-    carousel_columns = [
-        CarouselColumn(
-            thumbnail_image_url=f'https://www.jobs-go.jp/img/jobs/{card["company_url"].split("/")[-1]}_0.jpg',
-            title=str(card["company_name"]),
-            text=str(card["title"]),
-            actions=[
-                URIAction(label='詳しく見る', uri=str(card["company_url"]))
-            ]
-        ) for card in cards_data
-    ]
-    return carousel_columns
 
 
 def match_company_inMessage(txt):
