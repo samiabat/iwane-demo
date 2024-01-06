@@ -6,14 +6,14 @@ import os
 dynamodb = boto3.resource(
   'dynamodb', 
   region_name='ap-northeast-1', 
-  aws_access_key_id='AKIAWDQHRTRMNTVDMJFB',
-  aws_secret_access_key='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'
+  aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"), 
+  aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY")
 )
 client = boto3.client(
   'dynamodb', 
   region_name='ap-northeast-1', 
-  aws_access_key_id='AKIAWDQHRTRMNTVDMJFB', 
-  aws_secret_access_key='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'
+  aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"), 
+  aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY")
 )
 
 
