@@ -9,7 +9,12 @@ dynamodb = boto3.resource(
   aws_access_key_id='AKIAWDQHRTRMNTVDMJFB',
   aws_secret_access_key='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'
 )
-client = boto3.client('dynamodb')
+client = boto3.client(
+  'dynamodb', 
+  region_name='ap-northeast-1', 
+  aws_access_key_id='AKIAWDQHRTRMNTVDMJFB', 
+  aws_secret_access_key='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'
+)
 
 
 class DB():
