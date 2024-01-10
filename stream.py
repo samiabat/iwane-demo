@@ -11,7 +11,7 @@ pkl_vec = 'components/pkl_files/vec_iwane.pkl'
 table_name = 'iwane'
 
 
-st.title("岩根研究所のチャットデモ")
+st.title("大構想chat")
 
 # 定数定義
 USER_NAME = "user"
