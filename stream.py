@@ -39,11 +39,11 @@ if "chat_log" not in st.session_state:
 
 custom_css = """
 <style>
-  body{
-    background: ./components/img/background1.png;
+  .stApp{
+    background: url('https://raw.baberuboburu.com/iwane-demo/main/components/img/background1.png');
     background-size: cover;
-    background-repeat: norepeat;
-    background-potision: center;
+    background-repeat: no-repeat;
+    background-position: center;
   }
   .stChatInputContainer textarea {
       height: 150px;
