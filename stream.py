@@ -37,7 +37,14 @@ def create_ai_msg(user_msg: str):
 if "chat_log" not in st.session_state:
     st.session_state.chat_log = []
 
-
+custom_css = """
+<style>
+  .stChatInputContainer textarea {
+      height: 100px;
+  }
+</style>
+"""
+st.markdown(custom_css, unsafe_allow_html=True)
 user_msg = st.chat_input("ここにメッセージを入力")
 if user_msg:
     # 以前のチャットログを表示
