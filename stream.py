@@ -39,8 +39,14 @@ if "chat_log" not in st.session_state:
 
 custom_css = """
 <style>
+  body{
+    background: ./components/img/background1.png;
+    background-size: cover;
+    background-repeat: norepeat;
+    background-potision: center;
+  }
   .stChatInputContainer textarea {
-      height: 100px;
+      height: 150px;
   }
 </style>
 """
