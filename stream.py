@@ -48,6 +48,10 @@ custom_css = """
   .stChatInputContainer textarea {
       height: 150px;
   }
+  ..st-emotion-cache-90vs21{
+    padding: 0;
+    margin-bottom: 70px;
+  }
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
