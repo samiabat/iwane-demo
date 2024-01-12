@@ -40,7 +40,7 @@ if "chat_log" not in st.session_state:
 custom_css = """
 <style>
   .stApp{
-    background: url('https://raw.baberuboburu.com/iwane-demo/main/components/img/background1.png');
+    background: url('https://drive.google.com/file/d/1XZm6POLwuBqy3iTEp3_tfr4TLsn3c6Xe/view?usp=drive_link');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
