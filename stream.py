@@ -48,6 +48,9 @@ custom_css = """
   .stChatInputContainer textarea {
       height: 150px;
   }
+  .st-emotion-cache-1n76uvr{
+    marign-bottom: 100px;
+  }
   .st-emotion-cache-90vs21{
     padding: 0;
     margin-bottom: 70px;
