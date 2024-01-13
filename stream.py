@@ -52,6 +52,9 @@ custom_css = """
     padding: 0;
     margin-bottom: 70px;
   }
+  .stChatMessage{
+    background-color: rgba(240, 242, 246, 0.8);
+  }
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
