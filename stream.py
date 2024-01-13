@@ -49,7 +49,7 @@ custom_css = """
       height: 150px;
   }
   .st-emotion-cache-1n76uvr{
-    marign-bottom: 100px;
+    margin-bottom: 100px;
   }
   .st-emotion-cache-90vs21{
     padding: 0;
