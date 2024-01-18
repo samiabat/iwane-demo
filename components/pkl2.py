@@ -28,15 +28,12 @@ def to_pkls(df:pd.core.frame.DataFrame,pkl_files:list) -> pd.core.frame.DataFram
 
 def read_pkls(pkl_files):
   lst=[]
-  for i,pkl in enumerate(pkl_files):
+  for i, pkl in enumerate(pkl_files):
     try:
       df=read_pkl(pkl)
-    except FileNotFoundError:
-      print(f'skip "{pkl}", because it is not found.')
-      continue
+      lst += [df]
     except:
-      raise
-    lst += [df]
-  if lst==[]:
+      raise FileNotFoundError(f'skip "{pkl}", because it is not found.')
+  if lst == []:
     return None
   return pd.concat(lst)

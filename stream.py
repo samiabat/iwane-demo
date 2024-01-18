@@ -22,7 +22,7 @@ USER_ID = "st_demo"
 
 
 def create_ai_msg(user_msg: str):
-    chain_bot = JobManager(system_prompt, pkl_tots, pkl_vecs, table_name, user_msg, model_name="gpt-4-1106-preview")
+    chain_bot = JobManager(system_prompt, pkl_tots, pkl_vecs, model_name="gpt-4-1106-preview")
     db = DB('iwane-DBmsg', USER_ID)
     DB_msg = chain_bot.get_info(user_msg)
     if DB_msg == 'NullQuery' or DB_msg == '':

@@ -19,12 +19,12 @@ from components.pkl2 import read_pkls
 
 
 # dynamoDBの設定
-dynamodb = boto3.resource('dynamodb', region_name='ap-northeast-1', aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"), aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY"))
-client = boto3.client('dynamodb', region_name='ap-northeast-1', aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"), aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY"))
+dynamodb = boto3.resource('dynamodb', region_name='ap-northeast-1', aws_access_key_id=st.secrets["AWS_ACCESS_KEY_ID"], aws_secret_access_key=st.secrets["AWS_SECRET_ACCESS_KEY"])
+client = boto3.client('dynamodb', region_name='ap-northeast-1', aws_access_key_id=st.secrets["AWS_ACCESS_KEY_ID"], aws_secret_access_key=st.secrets["AWS_SECRET_ACCESS_KEY"])
 
 
 class JobManager():
-  def __init__(self, template, pkl_tots, pkl_vecs, table_name, line_user_id, model_name="gpt-3.5-turbo-1106"):
+  def __init__(self, template, pkl_tots, pkl_vecs, model_name="gpt-3.5-turbo-1106"):
     # llm = ChatOpenAI(model_name=model_name, openai_api_key=os.environ.get('OPENAI_API_KEY'), temperature=0.8)
     llm = ChatOpenAI(model_name=model_name, openai_api_key=st.secrets['OPENAI_API_KEY'], temperature=0.8)
     # message_history = DynamoDBChatMessageHistory(table_name=table_name, session_id=str(line_user_id))
@@ -40,19 +40,21 @@ class JobManager():
       HumanMessagePromptTemplate.from_template("{input}")
     ])
     self.chain = ConversationChain(memory=memory, prompt=prompt, llm=llm)
-    self.df_tot, self.df_vec = self.load_DB(pkl_tots, pkl_vecs, line_user_id)
+    self.df_tot, self.df_vec = self.load_DB(pkl_tots, pkl_vecs)
 
 
   def response(self, input):
     return self.chain.predict(input=input)
 
 
-  def load_DB(self, pkl_tots, pkl_vecs, line_user_id):
+  def load_DB(self, pkl_tots, pkl_vecs):
     # open_api_key = os.environ.get("OPENAI_API_KEY")
     open_api_key = st.secrets['OPENAI_API_KEY']
     embeddings = OpenAIEmbeddings()
     df_tot = read_pkls(pkl_files=pkl_tots)
     df_vec = read_pkls(pkl_files=pkl_vecs)
+    print(f'df_tot is {df_tot}')
+    print(f'df_vec is {df_vec}')
     # if os.path.exists(pkl_tot):
     #   with open(pkl_tot, "rb") as f:
     #     df_tot = pd.read_pickle(pkl_tot)
