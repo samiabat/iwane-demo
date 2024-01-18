@@ -3,7 +3,7 @@ import boto3
 import pandas as pd
 import streamlit as st
 from langchain.chat_models import ChatOpenAI
-from langchain.memory.chat_message_histories import DynamoDBChatMessageHistory
+# from langchain.memory.chat_message_histories import DynamoDBChatMessageHistory
 from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.chat_models import ChatOpenAI
@@ -27,9 +27,12 @@ class JobManager():
   def __init__(self, template, pkl_tots, pkl_vecs, table_name, line_user_id, model_name="gpt-3.5-turbo-1106"):
     # llm = ChatOpenAI(model_name=model_name, openai_api_key=os.environ.get('OPENAI_API_KEY'), temperature=0.8)
     llm = ChatOpenAI(model_name=model_name, openai_api_key=st.secrets['OPENAI_API_KEY'], temperature=0.8)
-    message_history = DynamoDBChatMessageHistory(table_name=table_name, session_id=str(line_user_id))
+    # message_history = DynamoDBChatMessageHistory(table_name=table_name, session_id=str(line_user_id))
+    # memory = ConversationBufferWindowMemory(
+    #   memory_key="history", chat_memory=message_history, return_messages=True, k=5
+    # )
     memory = ConversationBufferWindowMemory(
-      memory_key="history", chat_memory=message_history, return_messages=True, k=5
+      return_messages=True, k=1
     )
     prompt = ChatPromptTemplate.from_messages([
       SystemMessagePromptTemplate.from_template(template),
