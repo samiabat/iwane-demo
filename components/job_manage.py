@@ -1,6 +1,7 @@
 import os
 import boto3
 import pandas as pd
+import streamlit as st
 from langchain.chat_models import ChatOpenAI
 from langchain.memory.chat_message_histories import DynamoDBChatMessageHistory
 from langchain.chains import ConversationChain
@@ -23,7 +24,8 @@ client = boto3.client('dynamodb', region_name='ap-northeast-1', aws_access_key_i
 
 class JobManager():
   def __init__(self, template, pkl_tot, pkl_vec, table_name, line_user_id, model_name="gpt-3.5-turbo-1106"):
-    llm = ChatOpenAI(model_name=model_name, openai_api_key=os.environ.get('OPENAI_API_KEY'), temperature=0.8)
+    # llm = ChatOpenAI(model_name=model_name, openai_api_key=os.environ.get('OPENAI_API_KEY'), temperature=0.8)
+    llm = ChatOpenAI(model_name=model_name, openai_api_key=st.secrets['OPENAI_API_KEY'], temperature=0.8)
     message_history = DynamoDBChatMessageHistory(table_name=table_name, session_id=str(line_user_id))
     memory = ConversationBufferWindowMemory(
       memory_key="history", chat_memory=message_history, return_messages=True, k=5
@@ -42,7 +44,8 @@ class JobManager():
 
 
   def load_DB(self, pkl_tot, pkl_vec, line_user_id):
-    open_api_key = os.environ.get("OPENAI_API_KEY")
+    # open_api_key = os.environ.get("OPENAI_API_KEY")
+    open_api_key = st.secrets['OPENAI_API_KEY']
     embeddings = OpenAIEmbeddings()
     if os.path.exists(pkl_tot):
       with open(pkl_tot, "rb") as f:

@@ -8,6 +8,8 @@ import streamlit as st
 # 変数の定義
 pkl_tot = 'components/pkl_files/tot_iwane.pkl'
 pkl_vec = 'components/pkl_files/vec_iwane.pkl'
+pkl_tots = ['components/pkl_files/tot_iwane1.pkl', 'components/pkl_files/tot_iwane2.pkl', 'components/pkl_files/tot_iwane3.pkl', 'components/pkl_files/tot_iwane4.pkl', 'components/pkl_files/tot_iwane5.pkl', 'components/pkl_files/tot_iwane6.pkl']
+pkl_vecs = ['components/pkl_files/vec_iwane1.pkl', 'components/pkl_files/vec_iwane2.pkl', 'components/pkl_files/vec_iwane3.pkl', 'components/pkl_files/vec_iwane4.pkl', 'components/pkl_files/vec_iwane5.pkl', 'components/pkl_files/vec_iwane6.pkl']
 table_name = 'iwane'
 
 
