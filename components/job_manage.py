@@ -15,6 +15,7 @@ from langchain.prompts import (
   HumanMessagePromptTemplate
 )
 from components.functions import retrieveDF2, remove_element
+from components.pkl2 import read_pkls
 
 
 # dynamoDBの設定
@@ -23,7 +24,7 @@ client = boto3.client('dynamodb', region_name='ap-northeast-1', aws_access_key_i
 
 
 class JobManager():
-  def __init__(self, template, pkl_tot, pkl_vec, table_name, line_user_id, model_name="gpt-3.5-turbo-1106"):
+  def __init__(self, template, pkl_tots, pkl_vecs, table_name, line_user_id, model_name="gpt-3.5-turbo-1106"):
     # llm = ChatOpenAI(model_name=model_name, openai_api_key=os.environ.get('OPENAI_API_KEY'), temperature=0.8)
     llm = ChatOpenAI(model_name=model_name, openai_api_key=st.secrets['OPENAI_API_KEY'], temperature=0.8)
     message_history = DynamoDBChatMessageHistory(table_name=table_name, session_id=str(line_user_id))
@@ -36,25 +37,27 @@ class JobManager():
       HumanMessagePromptTemplate.from_template("{input}")
     ])
     self.chain = ConversationChain(memory=memory, prompt=prompt, llm=llm)
-    self.df_tot, self.df_vec = self.load_DB(pkl_tot, pkl_vec, line_user_id)
+    self.df_tot, self.df_vec = self.load_DB(pkl_tots, pkl_vecs, line_user_id)
 
 
   def response(self, input):
     return self.chain.predict(input=input)
 
 
-  def load_DB(self, pkl_tot, pkl_vec, line_user_id):
+  def load_DB(self, pkl_tots, pkl_vecs, line_user_id):
     # open_api_key = os.environ.get("OPENAI_API_KEY")
     open_api_key = st.secrets['OPENAI_API_KEY']
     embeddings = OpenAIEmbeddings()
-    if os.path.exists(pkl_tot):
-      with open(pkl_tot, "rb") as f:
-        df_tot = pd.read_pickle(pkl_tot)
-    if os.path.exists(pkl_vec):
-      with open(pkl_vec, "rb") as f:
-        df_vec = pd.read_pickle(pkl_vec)
-    else:
-      1/0
+    df_tot = read_pkls(pkl_files=pkl_tots)
+    df_vec = read_pkls(pkl_files=pkl_vecs)
+    # if os.path.exists(pkl_tot):
+    #   with open(pkl_tot, "rb") as f:
+    #     df_tot = pd.read_pickle(pkl_tot)
+    # if os.path.exists(pkl_vec):
+    #   with open(pkl_vec, "rb") as f:
+    #     df_vec = pd.read_pickle(pkl_vec)
+    # else:
+    #   1/0
     return df_tot, df_vec
 
 
