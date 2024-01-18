@@ -6,7 +6,7 @@ import streamlit as st
 
 
 # 変数の定義
-path = 'https://raw.githubusercontent.com/ivy-consulting/iwane-demo/main/components/pkl_files'
+path = 'components/pkl_files'
 # pkl_tot = 'components/pkl_files/tot_iwane.pkl'
 # pkl_vec = 'components/pkl_files/vec_iwane.pkl'
 pkl_tots = [f'{path}/tot_iwane1.pkl', f'{path}/tot_iwane2.pkl', f'{path}/tot_iwane3.pkl', f'{path}/tot_iwane4.pkl', f'{path}/tot_iwane5.pkl', f'{path}/tot_iwane6.pkl']
