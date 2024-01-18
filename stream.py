@@ -6,10 +6,11 @@ import streamlit as st
 
 
 # 変数の定義
+path = 'https://raw.githubusercontent.com/ivy-consulting/iwane-demo/main/components/pkl_files'
 pkl_tot = 'components/pkl_files/tot_iwane.pkl'
 pkl_vec = 'components/pkl_files/vec_iwane.pkl'
-pkl_tots = ['components/pkl_files/tot_iwane1.pkl', 'components/pkl_files/tot_iwane2.pkl', 'components/pkl_files/tot_iwane3.pkl', 'components/pkl_files/tot_iwane4.pkl', 'components/pkl_files/tot_iwane5.pkl', 'components/pkl_files/tot_iwane6.pkl']
-pkl_vecs = ['components/pkl_files/vec_iwane1.pkl', 'components/pkl_files/vec_iwane2.pkl', 'components/pkl_files/vec_iwane3.pkl', 'components/pkl_files/vec_iwane4.pkl', 'components/pkl_files/vec_iwane5.pkl', 'components/pkl_files/vec_iwane6.pkl']
+pkl_tots = [f'{path}/tot_iwane1.pkl', f'{path}/tot_iwane2.pkl', f'{path}/tot_iwane3.pkl', f'{path}/tot_iwane4.pkl', f'{path}/tot_iwane5.pkl', f'{path}/tot_iwane6.pkl']
+pkl_vecs = [f'{path}/vec_iwane1.pkl', f'{path}/vec_iwane2.pkl', f'{path}/vec_iwane3.pkl', f'{path}/vec_iwane4.pkl', f'{path}/vec_iwane5.pkl', f'{path}/vec_iwane6.pkl']
 table_name = 'iwane'
 
 
@@ -42,7 +43,7 @@ if "chat_log" not in st.session_state:
 custom_css = """
 <style>
   .stApp{
-    background: url('https://raw.githubusercontent.com/baberuboburu/iwane-demo/main/components/img/background1.png');
+    background: url('https://raw.githubusercontent.com/ivy-consulting/iwane-demo/main/components/img/background1.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
