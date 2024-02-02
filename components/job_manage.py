@@ -26,7 +26,7 @@ client = boto3.client('dynamodb', region_name='ap-northeast-1', aws_access_key_i
 class JobManager():
   def __init__(self, template, pkl_tots, pkl_vecs, model_name="gpt-3.5-turbo-1106"):
     # llm = ChatOpenAI(model_name=model_name, openai_api_key=os.environ.get('OPENAI_API_KEY'), temperature=0.8)
-    llm = ChatOpenAI(model_name=model_name, openai_api_key=st.secrets['OPENAI_API_KEY'], temperature=0.8)
+    llm = ChatOpenAI(model_name=model_name, temperature=0.8)
     # message_history = DynamoDBChatMessageHistory(table_name=table_name, session_id=str(line_user_id))
     # memory = ConversationBufferWindowMemory(
     #   memory_key="history", chat_memory=message_history, return_messages=True, k=5
@@ -49,7 +49,7 @@ class JobManager():
 
   def load_DB(self, pkl_tots, pkl_vecs):
     # open_api_key = os.environ.get("OPENAI_API_KEY")
-    open_api_key = st.secrets['OPENAI_API_KEY']
+    # open_api_key = st.secrets['OPENAI_API_KEY']
     embeddings = OpenAIEmbeddings()
     df_tot = read_pkls(pkl_files=pkl_tots)
     df_vec = read_pkls(pkl_files=pkl_vecs)
