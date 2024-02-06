@@ -59,7 +59,7 @@ custom_css = """
     margin-bottom: 70px;
   }
   .stChatMessage{
-    background-color: rgba(240, 242, 246, 0.8);
+    background-color: rgba(240, 242, 246, 1);
   }
 </style>
 """
