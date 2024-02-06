@@ -11,7 +11,6 @@ path = 'components/pkl_files'
 # pkl_vec = 'components/pkl_files/vec_iwane.pkl'
 pkl_tots = [f'{path}/tot_iwane1.pkl', f'{path}/tot_iwane2.pkl', f'{path}/tot_iwane3.pkl', f'{path}/tot_iwane4.pkl', f'{path}/tot_iwane5.pkl', f'{path}/tot_iwane6.pkl']
 pkl_vecs = [f'{path}/vec_iwane1.pkl', f'{path}/vec_iwane2.pkl', f'{path}/vec_iwane3.pkl', f'{path}/vec_iwane4.pkl', f'{path}/vec_iwane5.pkl', f'{path}/vec_iwane6.pkl']
-table_name = 'iwane'
 
 
 st.title("大構想chat")
@@ -20,6 +19,7 @@ st.title("大構想chat")
 USER_NAME = "user"
 ASSISTANT_NAME = "assistant"
 USER_ID = "st_demo"
+table_name = 'iwane'
 
 
 def create_ai_msg(user_msg: str):
