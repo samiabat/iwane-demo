@@ -20,13 +20,13 @@ from typing import List
 class JobManager():
   def __init__(self, template: str, table_name: str, USER_ID: str, pkl_tots: List[str], pkl_vecs: List[str], model_name: str="gpt-3.5-turbo-1106"):
     # dynamoDBの設定
-    dynamodb = boto3.resource('dynamodb', region_name='ap-northeast-1', aws_access_key_id=st.secrets["AWS_ACCESS_KEY_ID"], aws_secret_access_key=st.secrets["AWS_SECRET_ACCESS_KEY"])
-    client = boto3.client('dynamodb', region_name='ap-northeast-1', aws_access_key_id=st.secrets["AWS_ACCESS_KEY_ID"], aws_secret_access_key=st.secrets["AWS_SECRET_ACCESS_KEY"])
+    # dynamodb = boto3.resource('dynamodb', region_name='ap-northeast-1', aws_access_key_id=st.secrets["AWS_ACCESS_KEY_ID"], aws_secret_access_key=st.secrets["AWS_SECRET_ACCESS_KEY"])
+    # client = boto3.client('dynamodb', region_name='ap-northeast-1', aws_access_key_id=st.secrets["AWS_ACCESS_KEY_ID"], aws_secret_access_key=st.secrets["AWS_SECRET_ACCESS_KEY"])
     # LangChainの設定
     llm = ChatOpenAI(model_name=model_name, temperature=0.8)
-    message_history = DynamoDBChatMessageHistory(table_name=table_name, session_id=USER_ID)
+    # message_history = DynamoDBChatMessageHistory(table_name=table_name, session_id=USER_ID)
     memory = ConversationBufferWindowMemory(
-      memory_key="history", chat_memory=message_history, return_messages=True, k=5
+      memory_key="history", return_messages=True, k=5
     )
     prompt = ChatPromptTemplate.from_messages([
       SystemMessagePromptTemplate.from_template(template),
