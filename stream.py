@@ -24,10 +24,12 @@ table_name = 'iwane'
 
 def create_ai_msg(user_msg: str):
     chain_bot = JobManager(system_prompt, table_name, USER_ID, pkl_tots, pkl_vecs, model_name="gpt-4-1106-preview")
-    db = DB('iwane-DBmsg', USER_ID)
+    # db = DB('iwane-DBmsg', USER_ID)
     DB_msg = chain_bot.get_info(user_msg)
-    if DB_msg == 'NullQuery' or DB_msg == '':
-      DB_msg = db.get_item_if_exists()
+    if DB_msg == 'NullQuery':
+      DB_msg = ''
+    # if DB_msg == 'NullQuery' or DB_msg == '':
+    #   DB_msg = db.get_item_if_exists()
     if len(DB_msg) > 50: 
       DB_msg_input = ' 参考:'+ DB_msg
     else:
