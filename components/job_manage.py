@@ -1,9 +1,7 @@
-import os
 import boto3
-import pandas as pd
 import streamlit as st
 from langchain.chat_models import ChatOpenAI
-# from langchain.memory.chat_message_histories import DynamoDBChatMessageHistory
+from langchain.memory.chat_message_histories import DynamoDBChatMessageHistory
 from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.chat_models import ChatOpenAI
@@ -16,6 +14,7 @@ from langchain.prompts import (
 )
 from components.functions import retrieveDF2, remove_element
 from components.pkl2 import read_pkls
+from typing import List
 
 
 # dynamoDBの設定
@@ -24,15 +23,11 @@ client = boto3.client('dynamodb', region_name='ap-northeast-1', aws_access_key_i
 
 
 class JobManager():
-  def __init__(self, template, pkl_tots, pkl_vecs, model_name="gpt-3.5-turbo-1106"):
-    # llm = ChatOpenAI(model_name=model_name, openai_api_key=os.environ.get('OPENAI_API_KEY'), temperature=0.8)
+  def __init__(self, template: str, table_name: str, USER_ID: str, pkl_tots: List[str], pkl_vecs: List[str], model_name: str="gpt-3.5-turbo-1106"):
     llm = ChatOpenAI(model_name=model_name, temperature=0.8)
-    # message_history = DynamoDBChatMessageHistory(table_name=table_name, session_id=str(line_user_id))
-    # memory = ConversationBufferWindowMemory(
-    #   memory_key="history", chat_memory=message_history, return_messages=True, k=5
-    # )
+    message_history = DynamoDBChatMessageHistory(table_name=table_name, session_id=USER_ID)
     memory = ConversationBufferWindowMemory(
-      return_messages=True, k=1
+      memory_key="history", chat_memory=message_history, return_messages=True, k=5
     )
     prompt = ChatPromptTemplate.from_messages([
       SystemMessagePromptTemplate.from_template(template),
@@ -48,21 +43,9 @@ class JobManager():
 
 
   def load_DB(self, pkl_tots, pkl_vecs):
-    # open_api_key = os.environ.get("OPENAI_API_KEY")
-    # open_api_key = st.secrets['OPENAI_API_KEY']
     embeddings = OpenAIEmbeddings()
     df_tot = read_pkls(pkl_files=pkl_tots)
     df_vec = read_pkls(pkl_files=pkl_vecs)
-    print(f'df_tot is {df_tot}')
-    print(f'df_vec is {df_vec}')
-    # if os.path.exists(pkl_tot):
-    #   with open(pkl_tot, "rb") as f:
-    #     df_tot = pd.read_pickle(pkl_tot)
-    # if os.path.exists(pkl_vec):
-    #   with open(pkl_vec, "rb") as f:
-    #     df_vec = pd.read_pickle(pkl_vec)
-    # else:
-    #   1/0
     return df_tot, df_vec
 
 
