@@ -9,8 +9,8 @@ import streamlit as st
 path = 'components/pkl_files'
 # pkl_tot = 'components/pkl_files/tot_iwane.pkl'
 # pkl_vec = 'components/pkl_files/vec_iwane.pkl'
-pkl_tots = [f'{path}/tot_iwane1.pkl', f'{path}/tot_iwane2.pkl', f'{path}/tot_iwane3.pkl', f'{path}/tot_iwane4.pkl', f'{path}/tot_iwane5.pkl', f'{path}/tot_iwane6.pkl']
-pkl_vecs = [f'{path}/vec_iwane1.pkl', f'{path}/vec_iwane2.pkl', f'{path}/vec_iwane3.pkl', f'{path}/vec_iwane4.pkl', f'{path}/vec_iwane5.pkl', f'{path}/vec_iwane6.pkl']
+pkl_tots = [f'{path}/tot_iwane1.pkl', f'{path}/tot_iwane2.pkl', f'{path}/tot_iwane3.pkl', f'{path}/tot_iwane4.pkl', f'{path}/tot_iwane5.pkl', f'{path}/tot_iwane6.pkl', f'{path}/tot_iwane7.pkl']
+pkl_vecs = [f'{path}/vec_iwane1.pkl', f'{path}/vec_iwane2.pkl', f'{path}/vec_iwane3.pkl', f'{path}/vec_iwane4.pkl', f'{path}/vec_iwane5.pkl', f'{path}/vec_iwane6.pkl', f'{path}/vec_iwane7.pkl']
 
 
 st.title("大構想chat")
