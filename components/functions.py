@@ -122,7 +122,7 @@ def cal_similarity(df_vec,query_txt,rows=None,cols=None):
         if smax < sim_vec[i]:
           smax=sim_vec[i]
           idx_max,col_max=idx,col
-  return sim_vec,smax,idx_max,col_max,col_vec
+  return sim_vec, smax, idx_max, col_max, col_vec
 
 
 def get_similarity2(df_vec,query_txt,rows): ## 2023-11-08
