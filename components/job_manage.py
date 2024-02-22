@@ -51,7 +51,7 @@ class JobManager():
 
 
   def get_info(self, usr_msg): ## 2023-11-08
-    df_hit=retrieveDF2(self.df_tot, self.df_vec, usr_msg)
+    df_hit = retrieveDF2(self.df_tot, self.df_vec, usr_msg)
     if df_hit is None:
       return("NoHits")
     df_hit=df_hit.drop(columns=['similarity']) # 2023-11-18 similarityを除外

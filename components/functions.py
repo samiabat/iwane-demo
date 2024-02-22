@@ -98,8 +98,8 @@ def message2tuples(lines, line_user_id):  # parser_message -> query_tuples
 
 def retrieveDF2(df_tot,df_vec,query_txt): ## 2023-11-08
   rows = [True for a in df_vec.index]      # 全て検索対象
-  df_sim = get_similarity2(df_vec,query_txt,rows)
-  return pd.concat([df_sim,df_tot['all']],axis=1,join='inner')
+  df_sim = get_similarity2(df_vec, query_txt, rows)
+  return pd.concat([df_sim, df_tot['all']], axis=1, join='inner')
 
 
 def cal_similarity(df_vec,query_txt,rows=None,cols=None):
@@ -113,7 +113,7 @@ def cal_similarity(df_vec,query_txt,rows=None,cols=None):
   for i,idx in enumerate(df_vec.index):
     if not rows[i]:continue
     for j,col in enumerate(cols):
-      vec2 = df_vec.loc[idx,col]
+      vec2 = df_vec.loc[idx, col]
       if vec2 == 'nan': continue
       s=cos_similarity(vec1,vec2)
       if sim_vec[i]<s:
