@@ -30,8 +30,8 @@ def read_pkls(pkl_files):
   lst=[]
   for i, pkl in enumerate(pkl_files):
     try:
-      df=read_pkl(pkl)
-      lst += [df]
+      df = read_pkl(pkl)
+      lst += df
     except:
       raise FileNotFoundError(f'skip "{pkl}", because it is not found.')
   if lst == []:
