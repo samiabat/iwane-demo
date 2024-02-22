@@ -114,7 +114,7 @@ def cal_similarity(df_vec,query_txt,rows=None,cols=None):
     if not rows[i]:continue
     for j,col in enumerate(cols):
       vec2 = df_vec.loc[idx,col]
-      if (vec2 == 'nan').any(): continue 
+      if (vec2 == 'nan').any(): continue
       s=cos_similarity(vec1,vec2)
       if sim_vec[i]<s:
         sim_vec[i]=s
