@@ -111,7 +111,7 @@ def cal_similarity(df_vec,query_txt,rows=None,cols=None):
   vec1=np.array( embeddings.embed_query(str(query_txt)))
   smax,idx_max,col_max=-999,-999,-999
   for i,idx in enumerate(df_vec.index):
-    if not rows[i]:continue
+    if not rows[i]: continue
     for j,col in enumerate(cols):
       vec2 = df_vec.loc[idx, col]
       if vec2 == 'nan': continue
