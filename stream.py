@@ -21,7 +21,7 @@ st.title("大構想chat")
 # 定数定義
 USER_NAME = "user"
 ASSISTANT_NAME = "assistant"
-USER_ID = "st_demo"
+USER_ID = "st_test"
 table_name = 'iwane'
 
 
