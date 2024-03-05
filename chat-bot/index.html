@@ -1,11 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chat-bot</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        /* Add custom CSS if needed */
+        #chat-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            flex-shrink: 1;
+            height: 60vh;
+        }
+        #input-container {
+            flex-shrink: 0;
+        }
+        #send-icon {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            cursor: pointer;
+            color: #007bff;
+            font-size: 30px;
+            margin-bottom: 10px;
+            margin-right: 30px;
+        }
+    </style>
 </head>
-<body>
-    <h1>Hello world</h1>
+<body class="bg-success-subtle">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1 class="display-4">チャットボット</h1>
+            <p class="lead">応答の生成には chatgpt を使用しています。</p>
+        </div>
+    </div>
+    <div class="col-md-6 offset-md-3 pt-4 pb-4 d-flex flex-column" id="chat-container">
+        <!-- Display chat messages -->
+        <div id="messages-container"></div>
+    </div>
+    <div class="fixed-bottom" id="input-container">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <div class="form-floating position-relative">
+                        <textarea class="form-control" onkeydown="checkEnter(event)" placeholder="Leave a question here" id="floatingTextarea2"  style="height: 70px"></textarea>
+                        <label for="floatingTextarea2">
+                            質問してください
+                        </label>
+                        <i class="fas fa-paper-plane" id="send-icon" onclick="sendMessage()"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>何か質問がありますか?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const state = {
+            messages: [],
+            newMessage: '',
+            apiUrl: 'https://api.openai.com/v1/chat/completions',
+            history: [],
+        };
+        
+        async function sendMessage() {
+            var input = document.getElementById('floatingTextarea2');
+            state.newMessage = input.value;
+            input.value = "";
+            const userMessage = state.newMessage.trim();
+            if (userMessage === '') {
+                return;
+            }
+            const messageId = state.messages.length + 1;
+            state.messages.push({ id: messageId, content: userMessage, isUser: true });
+            state.newMessage = '';
+            const sended = { role: "user", content: userMessage };
+            console.log(sended)
+            try {
+                state.history.push(sended);
+                const response = await axios.post(state.apiUrl, {
+                    model: "gpt-3.5-turbo",
+                    messages: state.history,
+                }, {
+                    headers: {
+                        'Authorization': 'Bearer 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',
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const botMessage = response.data.choices[0].message.content;
+                const received = { role: "assistant", content: botMessage };
+                state.history.push(received);
+                state.messages.push({ id: messageId + 1, content: botMessage, isUser: false });
+                updateChat();
+            } catch (error) {
+                state.history.pop();
+                console.error('Error:', error);
+                // Handle the error here
+            }
+        }
+
+        function updateChat() {
+            const messagesContainer = document.getElementById('messages-container');
+            messagesContainer.innerHTML = '';
+
+            state.messages.forEach(message => {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('position-relative');
+
+                const senderHeading = document.createElement('h3');
+                senderHeading.classList.add('px-2', 'pt-4', 'm-2');
+                console.log(message.isUser, message)
+                senderHeading.textContent = message.isUser ? 'あなた:' : 'チャットボット:';
+
+                const messageParagraph = document.createElement('p');
+                messageParagraph.classList.add('px-2', 'm-2');
+                messageParagraph.textContent = message.content;
+
+                messageElement.appendChild(senderHeading);
+                messageElement.appendChild(messageParagraph);
+
+                messagesContainer.appendChild(messageElement);
+            });
+        }
+        function checkEnter(event) {
+            // Check if the pressed key is Enter (key code 13)
+            if (event.keyCode === 13) {
+                // Prevent the default behavior (new line in the textarea)
+                event.preventDefault();
+    
+                // Call the sendMessage function
+                sendMessage();
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
 </body>
 </html>
