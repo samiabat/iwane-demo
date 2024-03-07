@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Chat App</title>
+</head>
+<body>
+    <h1>Flask Chat App</h1>
+    <form method="post" action="/">
+        <label for="user_msg">Enter your message:</label>
+        <input type="text" id="user_msg" name="user_msg" required>
+        <input type="submit" value="Send">
+    </form>
+    
+    {% if user_msg %}
+        <p>{{ user_msg }}</p>
+    {% endif %}
+
+    {% if assistant_msg %}
+        <p>{{ assistant_msg }}</p>
+    {% endif %}
+</body>
+</html>
