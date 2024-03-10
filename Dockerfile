@@ -17,4 +17,4 @@ EXPOSE 8501
 ENV PYTHONPATH=/app
 
 # Run app.py when the container launches
-CMD ["streamlit", "run", "stream.py"]
+CMD ["streamlit", "run", "app.py"]
